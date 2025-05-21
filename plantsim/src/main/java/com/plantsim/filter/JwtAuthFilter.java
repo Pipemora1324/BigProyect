@@ -1,18 +1,18 @@
-// src/main/java/com/plantsim/filter/JwtAuthFilter.java
 package com.plantsim.filter;
 
 import com.plantsim.model.User;
 import com.plantsim.repository.UserRepository;
 import com.plantsim.service.JwtService;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -52,13 +52,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             if (userOptional.isPresent() && jwtService.isTokenValid(jwt, userEmail)) {
                 User user = userOptional.get();
                 
-                Authentication authentication = new UsernamePasswordAuthenticationToken(
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                     userEmail,
                     null,
                     Collections.singletonList(new SimpleGrantedAuthority("USER"))
                 );
                 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                SecurityContextHolder.getContext().setAuthentication(authToken);
                 
                 // Añadir atributo al request para acceder al usuario actual en los controladores
                 request.setAttribute("currentUser", user);
