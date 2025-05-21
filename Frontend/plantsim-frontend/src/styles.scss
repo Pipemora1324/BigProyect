@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+
+// Estilos globales
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  padding-bottom: 60px; /* Espacio para el footer */
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1030;
+}
+
+// Custom Dropdown styling
+.dropdown-item {
+  cursor: pointer;
+}
+
+// Mejoras para las cards
+.card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}

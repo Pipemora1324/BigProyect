@@ -1,0 +1,97 @@
+<div class="container mt-4">
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    <p>Cargando información de la planta...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+    <button class="btn btn-outline-danger ms-3" (click)="goBack()">Volver</button>
+  </div>
+
+  <div *ngIf="plant && !isLoading">
+    <div class="card">
+      <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h2 class="mb-0">{{ plant.nombre }}</h2>
+        <div>
+          <button class="btn btn-outline-light me-2" (click)="addToRecommended()">
+            <i class="fas fa-star"></i> Añadir a Recomendados
+          </button>
+          <div class="btn-group ms-2">
+            <button class="btn btn-sm btn-outline-light dropdown-toggle" type="button" 
+                   data-bs-toggle="dropdown" aria-expanded="false">
+              Acciones
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" (click)="irSimulador()"><i class="fas fa-seedling"></i> Simular</a></li>
+              <li><a class="dropdown-item" (click)="editPlant()"><i class="fas fa-edit"></i> Editar</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" (click)="deletePlant()"><i class="fas fa-trash"></i> Eliminar</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Información General</h3>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Nombre:</th>
+                  <td>{{ plant.nombre }}</td>
+                </tr>
+                <tr>
+                  <th>Especie:</th>
+                  <td>{{ plant.especie }}</td>
+                </tr>
+                <tr>
+                  <th>Edad:</th>
+                  <td>{{ plant.edad }} años</td>
+                </tr>
+                <tr>
+                  <th>Tipo de suelo:</th>
+                  <td>{{ plant.tipoSuelo }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h3>Tareas de Cuidado</h3>
+            <div class="card">
+              <div class="card-body">
+                <p class="text-muted">Añade tareas para el cuidado de tu planta</p>
+                <div class="d-flex gap-2 mb-3">
+                  <button class="btn btn-sm btn-outline-primary" (click)="addCareTask('Regar')">Regar</button>
+                  <button class="btn btn-sm btn-outline-primary" (click)="addCareTask('Fertilizar')">Fertilizar</button>
+                  <button class="btn btn-sm btn-outline-primary" (click)="addCareTask('Podar')">Podar</button>
+                  <button class="btn btn-sm btn-outline-primary" (click)="addCareTask('Trasplantar')">Trasplantar</button>
+                </div>
+              </div>
+            </div>
+            
+            <h3 class="mt-4">Acciones Rápidas</h3>
+            <div class="d-grid gap-2">
+              <button class="btn btn-success" (click)="irSimulador()">
+                <i class="fas fa-seedling"></i> Simular Crecimiento
+              </button>
+              <button class="btn btn-primary" (click)="editPlant()">
+                <i class="fas fa-edit"></i> Editar Planta
+              </button>
+              <button class="btn btn-danger" (click)="deletePlant()">
+                <i class="fas fa-trash"></i> Eliminar Planta
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-secondary" (click)="goBack()">
+          <i class="fas fa-arrow-left"></i> Volver a la lista
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

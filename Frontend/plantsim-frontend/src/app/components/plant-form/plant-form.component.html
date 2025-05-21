@@ -1,0 +1,90 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h2>{{ isEditMode ? 'Editar' : 'Nueva' }} Planta</h2>
+    </div>
+
+    <div class="card-body">
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <form [formGroup]="plantForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="nombre" 
+            formControlName="nombre" 
+            [class.is-invalid]="plantForm.get('nombre')?.invalid && plantForm.get('nombre')?.touched"
+          >
+          <div class="invalid-feedback" *ngIf="plantForm.get('nombre')?.errors?.['required']">
+            El nombre es obligatorio.
+          </div>
+          <div class="invalid-feedback" *ngIf="plantForm.get('nombre')?.errors?.['minlength']">
+            El nombre debe tener al menos 2 caracteres.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="especie" class="form-label">Especie</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="especie" 
+            formControlName="especie"
+            [class.is-invalid]="plantForm.get('especie')?.invalid && plantForm.get('especie')?.touched"
+          >
+          <div class="invalid-feedback" *ngIf="plantForm.get('especie')?.errors?.['required']">
+            La especie es obligatoria.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="edad" class="form-label">Edad (años)</label>
+          <input 
+            type="number" 
+            class="form-control" 
+            id="edad" 
+            formControlName="edad"
+            [class.is-invalid]="plantForm.get('edad')?.invalid && plantForm.get('edad')?.touched"
+          >
+          <div class="invalid-feedback" *ngIf="plantForm.get('edad')?.errors?.['required']">
+            La edad es obligatoria.
+          </div>
+          <div class="invalid-feedback" *ngIf="plantForm.get('edad')?.errors?.['min']">
+            La edad no puede ser negativa.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="tipoSuelo" class="form-label">Tipo de Suelo</label>
+          <select 
+            class="form-select" 
+            id="tipoSuelo" 
+            formControlName="tipoSuelo"
+            [class.is-invalid]="plantForm.get('tipoSuelo')?.invalid && plantForm.get('tipoSuelo')?.touched"
+          >
+            <option *ngFor="let tipo of tiposSuelo" [value]="tipo">{{ tipo }}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="plantForm.get('tipoSuelo')?.errors?.['required']">
+            El tipo de suelo es obligatorio.
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button 
+            type="submit" 
+            class="btn btn-primary" 
+            [disabled]="isSubmitting"
+          >
+            <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+            {{ isEditMode ? 'Actualizar' : 'Crear' }} Planta
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<div class="container mt-4">
+  <div class="jumbotron bg-light p-5 rounded">
+    <h1 class="display-4">¡Bienvenido a PlantSim!</h1>
+    <p class="lead">Simula el crecimiento de tus plantas basado en variables ambientales.</p>
+    <hr class="my-4">
+    <p>Registra tus plantas, ingresa las condiciones ambientales y obtén recomendaciones personalizadas.</p>
+    <a class="btn btn-primary btn-lg" routerLink="/plantas" role="button">Ver mis plantas</a>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header bg-success text-white">
+          <h4>Gestión de Plantas</h4>
+        </div>
+        <div class="card-body">
+          <p>Mantén un registro organizado de todas tus plantas.</p>
+          <ul>
+            <li>Agrega nuevas plantas</li>
+            <li>Edita información existente</li>
+            <li>Elimina registros antiguos</li>
+          </ul>
+          <a routerLink="/plantas" class="btn btn-outline-success">Ir a mis plantas</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h4>Simulación de Crecimiento</h4>
+        </div>
+        <div class="card-body">
+          <p>Simula cómo crecerán tus plantas bajo diferentes condiciones:</p>
+          <ul>
+            <li>Temperatura</li>
+            <li>Humedad</li>
+            <li>Horas de luz</li>
+            <li>Tipo de suelo</li>
+          </ul>
+          <a routerLink="/plantas" class="btn btn-outline-primary">Simular ahora</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <h4>Recomendaciones IA</h4>
+        </div>
+        <div class="card-body">
+          <p>Recibe consejos personalizados para el cuidado de tus plantas:</p>
+          <ul>
+            <li>Frecuencia de riego</li>
+            <li>Exposición a la luz</li>
+            <li>Tipo de suelo ideal</li>
+            <li>Prevención de enfermedades</li>
+          </ul>
+          <a routerLink="/plantas" class="btn btn-outline-info">Ver recomendaciones</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4" *ngIf="recommendedPlants.length > 0">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-warning">
+          <h3>Plantas Recomendadas</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4" *ngFor="let plant of recommendedPlants">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">{{plant.nombre}}</h5>
+                  <p class="card-text">{{plant.especie}}</p>
+                  <a [routerLink]="['/plantas', plant.id]" class="btn btn-sm btn-warning">Ver detalles</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4" *ngIf="careTasksList.length > 0">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-danger text-white">
+          <h3>Tareas de Cuidado Pendientes</h3>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let task of careTasksList">
+              {{task}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

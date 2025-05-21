@@ -1,0 +1,122 @@
+<div class="container mt-4">
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    <p>Cargando información de la planta...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+    <button class="btn btn-outline-danger ms-3" (click)="volver()">Volver</button>
+  </div>
+
+  <div *ngIf="plant && !isLoading">
+    <div class="card">
+      <div class="card-header bg-success text-white">
+        <h2>Simulador de Crecimiento - {{ plant.nombre }}</h2>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Ingresa las condiciones ambientales</h3>
+            <div class="mb-3">
+              <label for="temperatura" class="form-label">Temperatura (°C)</label>
+              <input type="range" class="form-range" id="temperatura" min="-10" max="50" step="1" 
+                     [(ngModel)]="condiciones.temperatura">
+              <div class="d-flex justify-content-between">
+                <span>-10°C</span>
+                <span class="text-center"><strong>{{ condiciones.temperatura }}°C</strong></span>
+                <span>50°C</span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="humedad" class="form-label">Humedad (%)</label>
+              <input type="range" class="form-range" id="humedad" min="0" max="100" step="1" 
+                     [(ngModel)]="condiciones.humedad">
+              <div class="d-flex justify-content-between">
+                <span>0%</span>
+                <span class="text-center"><strong>{{ condiciones.humedad }}%</strong></span>
+                <span>100%</span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="tipoSuelo" class="form-label">Tipo de Suelo</label>
+              <select class="form-select" id="tipoSuelo" [(ngModel)]="condiciones.tipoSuelo">
+                <option *ngFor="let tipo of tiposSuelo" [value]="tipo">{{ tipo }}</option>
+              </select>
+            </div>
+
+            <div class="mb-4">
+              <label for="horasLuz" class="form-label">Horas de Luz</label>
+              <input type="range" class="form-range" id="horasLuz" min="0" max="24" step="1" 
+                     [(ngModel)]="condiciones.horasLuz">
+              <div class="d-flex justify-content-between">
+                <span>0h</span>
+                <span class="text-center"><strong>{{ condiciones.horasLuz }}h</strong></span>
+                <span>24h</span>
+              </div>
+            </div>
+
+            <button class="btn btn-success btn-lg w-100" (click)="simularCrecimiento()" [disabled]="isSimulating">
+              <span *ngIf="isSimulating" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+              Simular Crecimiento
+            </button>
+          </div>
+          
+          <div class="col-md-6">
+            <div *ngIf="!simulacionRealizada" class="text-center my-5 py-5">
+              <i class="fas fa-seedling fa-4x text-muted"></i>
+              <h3 class="mt-3 text-muted">Ingresa las condiciones y presiona "Simular Crecimiento"</h3>
+            </div>
+            
+            <div *ngIf="simulacionRealizada && resultado" class="resultado-simulacion">
+              <h3 class="mb-4">Resultados de la Simulación</h3>
+              
+              <div class="plant-visualization text-center">
+                <div class="plant-container">
+                  <div class="plant" [style.height.px]="100 + (resultado.crecimiento * 150)">
+                    <div class="plant-pot"></div>
+                    <div class="plant-stem"></div>
+                    <div class="leaves">
+                      <div class="leaf leaf-1"></div>
+                      <div class="leaf leaf-2"></div>
+                      <div class="leaf leaf-3"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mt-4">
+                <h4>Estado de Salud: <span [class]="getColorClass()">{{ resultado.estadoSalud }}</span></h4>
+                <div class="progress mb-3" style="height: 25px;">
+                  <div class="progress-bar" 
+                       [class]="getProgressBarClass()"
+                       role="progressbar" 
+                       [style.width]="getProgressBarWidth()" 
+                       aria-valuenow="0" 
+                       aria-valuemin="0" 
+                       aria-valuemax="100">
+                    {{ (resultado.crecimiento * 100).toFixed(0) }}%
+                  </div>
+                </div>
+                
+                <div class="alert alert-info mt-3">
+                  <strong><i class="fas fa-info-circle"></i> Recomendación:</strong><br>
+                  {{ resultado.recomendacion }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-secondary" (click)="volver()">
+          <i class="fas fa-arrow-left"></i> Volver
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
