@@ -1,75 +1,60 @@
-// src/main/java/com/plantsim/service/PlantService.java
 package com.plantsim.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.plantsim.model.Plant;
-import com.plantsim.model.User;
-import com.plantsim.repository.PlantRepository;
 
 @Service
 public class PlantService {
     
-    @Autowired
-    private PlantRepository plantRepository;
+    // Simulamos una base de datos con una lista
+    private List<Plant> plants = new ArrayList<>();
+    private Long idCounter = 0L;
     
-    /**
-     * Obtiene todas las plantas de un usuario
-     */
-    public List<Plant> findAllByUser(User user) {
-        return plantRepository.findByUser(user);
+    // Constructor que añade algunas plantas de ejemplo
+    public PlantService() {
+        // Añadir algunas plantas de ejemplo
+        save(new Plant(null, "Cactus", "Cactaceae", 1, "arenoso"));
+        save(new Plant(null, "Rosa", "Rosa spp.", 2, "franco"));
+        save(new Plant(null, "Orquídea", "Orchidaceae", 3, "especial"));
     }
     
-    /**
-     * Busca una planta por ID y usuario
-     */
-    public Plant findByIdAndUser(Long id, User user) {
-        Optional<Plant> plant = plantRepository.findByIdAndUser(id, user);
-        return plant.orElse(null);
+    // Método para obtener todas las plantas
+    public List<Plant> findAll() {
+        return plants;
     }
     
-    /**
-     * Guarda una planta asociada a un usuario
-     */
-    public Plant save(Plant plant, User user) {
-        plant.setUser(user);
-        return plantRepository.save(plant);
+    // Método para encontrar una planta por ID
+    public Plant findById(Long id) {
+        return plants.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
     
-    /**
-     * Actualiza una planta existente
-     */
-    public Plant update(Long id, Plant plantData, User user) {
-        Optional<Plant> existingPlantOpt = plantRepository.findByIdAndUser(id, user);
-        
-        if (existingPlantOpt.isPresent()) {
-            Plant existingPlant = existingPlantOpt.get();
-            existingPlant.setName(plantData.getName());
-            existingPlant.setSpecies(plantData.getSpecies());
-            existingPlant.setAge(plantData.getAge());
-            existingPlant.setSoilType(plantData.getSoilType());
-            
-            return plantRepository.save(existingPlant);
+    // Método para guardar una nueva planta
+    public Plant save(Plant plant) {
+        if (plant.getId() == null) {
+            plant.setId(++idCounter);
+            plants.add(plant);
         } else {
-            return null;
+            // Si ya existe, actualizar
+            plants = plants.stream()
+                    .filter(p -> !p.getId().equals(plant.getId()))
+                    .collect(Collectors.toList());
+            plants.add(plant);
         }
+        return plant;
     }
     
-    /**
-     * Elimina una planta por ID y usuario
-     */
-    public boolean deleteByIdAndUser(Long id, User user) {
-        Optional<Plant> plantOpt = plantRepository.findByIdAndUser(id, user);
-        
-        if (plantOpt.isPresent()) {
-            plantRepository.delete(plantOpt.get());
-            return true;
-        } else {
-            return false;
-        }
+    // Método para eliminar una planta
+    public void deleteById(Long id) {
+        plants = plants.stream()
+                .filter(p -> !p.getId().equals(id))
+                .collect(Collectors.toList());
     }
 }
