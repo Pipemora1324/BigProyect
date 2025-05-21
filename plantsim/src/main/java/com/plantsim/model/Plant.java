@@ -1,9 +1,15 @@
+// src/main/java/com/plantsim/model/Plant.java
 package com.plantsim.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Plant {
@@ -12,22 +18,27 @@ public class Plant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private String nombre;
-    private String especie;
-    private Integer edad;
-    private String tipoSuelo;
+    private String name;
+    private String species;
+    private Integer age;
+    private String soilType;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
     
     // Constructor vacío
     public Plant() {
     }
     
     // Constructor con parámetros
-    public Plant(Long id, String nombre, String especie, Integer edad, String tipoSuelo) {
+    public Plant(Long id, String name, String species, Integer age, String soilType) {
         this.id = id;
-        this.nombre = nombre;
-        this.especie = especie;
-        this.edad = edad;
-        this.tipoSuelo = tipoSuelo;
+        this.name = name;
+        this.species = species;
+        this.age = age;
+        this.soilType = soilType;
     }
     
     // Getters y setters
@@ -39,35 +50,43 @@ public class Plant {
         this.id = id;
     }
     
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
     
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
     
-    public String getEspecie() {
-        return especie;
+    public String getSpecies() {
+        return species;
     }
     
-    public void setEspecie(String especie) {
-        this.especie = especie;
+    public void setSpecies(String species) {
+        this.species = species;
     }
     
-    public Integer getEdad() {
-        return edad;
+    public Integer getAge() {
+        return age;
     }
     
-    public void setEdad(Integer edad) {
-        this.edad = edad;
+    public void setAge(Integer age) {
+        this.age = age;
     }
     
-    public String getTipoSuelo() {
-        return tipoSuelo;
+    public String getSoilType() {
+        return soilType;
     }
     
-    public void setTipoSuelo(String tipoSuelo) {
-        this.tipoSuelo = tipoSuelo;
+    public void setSoilType(String soilType) {
+        this.soilType = soilType;
+    }
+    
+    public User getUser() {
+        return user;
+    }
+    
+    public void setUser(User user) {
+        this.user = user;
     }
 }

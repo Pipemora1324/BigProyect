@@ -1,3 +1,4 @@
+// src/main/java/com/plantsim/controller/PlantController.java
 package com.plantsim.controller;
 
 import java.util.List;
@@ -15,90 +16,112 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.plantsim.model.CondicionesAmbientales;
+import com.plantsim.model.EnvironmentalConditions;
 import com.plantsim.model.Plant;
-import com.plantsim.model.ResultadoSimulacion;
+import com.plantsim.model.SimulationResult;
+import com.plantsim.model.User;
 import com.plantsim.service.PlantService;
-import com.plantsim.service.SimulacionService;
+import com.plantsim.service.SimulationService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200") // Para permitir conexiones desde Angular
+@RequestMapping("/api/plants")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PlantController {
 
     @Autowired
     private PlantService plantService;
     
     @Autowired
-    private SimulacionService simulacionService;
-
-    // Obtener todas las plantas
-    @GetMapping("/plantas")
-    public ResponseEntity<List<Plant>> getAllPlantas() {
-        List<Plant> plantas = plantService.findAll();
-        return new ResponseEntity<>(plantas, HttpStatus.OK);
+    private SimulationService simulationService;
+    
+    /**
+     * Obtiene todas las plantas del usuario actual
+     */
+    @GetMapping
+    public ResponseEntity<List<Plant>> getAllPlants(HttpServletRequest request) {
+        User currentUser = (User) request.getAttribute("currentUser");
+        List<Plant> plants = plantService.findAllByUser(currentUser);
+        return new ResponseEntity<>(plants, HttpStatus.OK);
     }
     
-    // Obtener una planta por ID
-    @GetMapping("/plantas/{id}")
-    public ResponseEntity<Plant> getPlantById(@PathVariable("id") long id) {
-        Plant planta = plantService.findById(id);
+    /**
+     * Obtiene una planta por ID (verificando que pertenezca al usuario)
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<Plant> getPlantById(@PathVariable("id") long id, HttpServletRequest request) {
+        User currentUser = (User) request.getAttribute("currentUser");
+        Plant plant = plantService.findByIdAndUser(id, currentUser);
         
-        if (planta == null) {
+        if (plant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         
-        return new ResponseEntity<>(planta, HttpStatus.OK);
+        return new ResponseEntity<>(plant, HttpStatus.OK);
     }
     
-    // Crear una nueva planta
-    @PostMapping("/plantas")
-    public ResponseEntity<Plant> createPlant(@RequestBody Plant planta) {
-        Plant nuevaPlanta = plantService.save(planta);
-        return new ResponseEntity<>(nuevaPlanta, HttpStatus.CREATED);
+    /**
+     * Crea una nueva planta asociada al usuario actual
+     */
+    @PostMapping
+    public ResponseEntity<Plant> createPlant(@RequestBody Plant plant, HttpServletRequest request) {
+        User currentUser = (User) request.getAttribute("currentUser");
+        Plant newPlant = plantService.save(plant, currentUser);
+        return new ResponseEntity<>(newPlant, HttpStatus.CREATED);
     }
     
-    // Actualizar una planta
-    @PutMapping("/plantas/{id}")
-    public ResponseEntity<Plant> updatePlant(@PathVariable("id") long id, @RequestBody Plant planta) {
-        Plant plantaExistente = plantService.findById(id);
+    /**
+     * Actualiza una planta existente
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Plant> updatePlant(
+            @PathVariable("id") long id, 
+            @RequestBody Plant plant,
+            HttpServletRequest request) {
         
-        if (plantaExistente == null) {
+        User currentUser = (User) request.getAttribute("currentUser");
+        Plant updatedPlant = plantService.update(id, plant, currentUser);
+        
+        if (updatedPlant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         
-        planta.setId(id);
-        plantService.save(planta);
-        
-        return new ResponseEntity<>(planta, HttpStatus.OK);
+        return new ResponseEntity<>(updatedPlant, HttpStatus.OK);
     }
     
-    // Eliminar una planta
-    @DeleteMapping("/plantas/{id}")
-    public ResponseEntity<HttpStatus> deletePlant(@PathVariable("id") long id) {
-        Plant plantaExistente = plantService.findById(id);
+    /**
+     * Elimina una planta
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deletePlant(@PathVariable("id") long id, HttpServletRequest request) {
+        User currentUser = (User) request.getAttribute("currentUser");
+        boolean deleted = plantService.deleteByIdAndUser(id, currentUser);
         
-        if (plantaExistente == null) {
+        if (!deleted) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         
-        plantService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     
-    // Simular crecimiento
-    @PostMapping("/plantas/{id}/simulate")
-    public ResponseEntity<ResultadoSimulacion> simularCrecimiento(
+    /**
+     * Simula el crecimiento de una planta
+     */
+    @PostMapping("/{id}/simulate")
+    public ResponseEntity<SimulationResult> simulateGrowth(
             @PathVariable("id") long id,
-            @RequestBody CondicionesAmbientales condiciones) {
+            @RequestBody EnvironmentalConditions conditions,
+            HttpServletRequest request) {
         
-        Plant planta = plantService.findById(id);
+        User currentUser = (User) request.getAttribute("currentUser");
+        Plant plant = plantService.findByIdAndUser(id, currentUser);
         
-        if (planta == null) {
+        if (plant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         
-        ResultadoSimulacion resultado = simulacionService.simularCrecimiento(planta, condiciones);
-        return new ResponseEntity<>(resultado, HttpStatus.OK);
+        SimulationResult result = simulationService.simulateGrowth(plant, conditions);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

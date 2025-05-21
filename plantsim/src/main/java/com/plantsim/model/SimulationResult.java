@@ -1,43 +1,44 @@
+// src/main/java/com/plantsim/model/SimulationResult.java
 package com.plantsim.model;
 
-public class ResultadoSimulacion {
-    private Double crecimiento;
-    private String recomendacion;
-    private String estadoSalud;
+public class SimulationResult {
+    private Double growth;
+    private String recommendation;
+    private String healthStatus;
     
     // Constructor vacío
-    public ResultadoSimulacion() {
+    public SimulationResult() {
     }
     
     // Constructor con parámetros
-    public ResultadoSimulacion(Double crecimiento, String recomendacion, String estadoSalud) {
-        this.crecimiento = crecimiento;
-        this.recomendacion = recomendacion;
-        this.estadoSalud = estadoSalud;
+    public SimulationResult(Double growth, String recommendation, String healthStatus) {
+        this.growth = growth;
+        this.recommendation = recommendation;
+        this.healthStatus = healthStatus;
     }
     
     // Getters y setters
-    public Double getCrecimiento() {
-        return crecimiento;
+    public Double getGrowth() {
+        return growth;
     }
     
-    public void setCrecimiento(Double crecimiento) {
-        this.crecimiento = crecimiento;
+    public void setGrowth(Double growth) {
+        this.growth = growth;
     }
     
-    public String getRecomendacion() {
-        return recomendacion;
+    public String getRecommendation() {
+        return recommendation;
     }
     
-    public void setRecomendacion(String recomendacion) {
-        this.recomendacion = recomendacion;
+    public void setRecommendation(String recommendation) {
+        this.recommendation = recommendation;
     }
     
-    public String getEstadoSalud() {
-        return estadoSalud;
+    public String getHealthStatus() {
+        return healthStatus;
     }
     
-    public void setEstadoSalud(String estadoSalud) {
-        this.estadoSalud = estadoSalud;
+    public void setHealthStatus(String healthStatus) {
+        this.healthStatus = healthStatus;
     }
 }

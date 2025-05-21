@@ -1,73 +1,77 @@
+// src/main/java/com/plantsim/service/SimulationService.java
 package com.plantsim.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.plantsim.model.CondicionesAmbientales;
+import com.plantsim.model.EnvironmentalConditions;
 import com.plantsim.model.Plant;
-import com.plantsim.model.ResultadoSimulacion;
+import com.plantsim.model.SimulationResult;
 
 @Service
-public class SimulacionService {
+public class SimulationService {
 
     @Autowired
-    private RecomendacionService recomendacionService;
+    private RecommendationService recommendationService;
     
-    public ResultadoSimulacion simularCrecimiento(Plant planta, CondicionesAmbientales condiciones) {
+    /**
+     * Simula el crecimiento de una planta basado en condiciones ambientales
+     */
+    public SimulationResult simulateGrowth(Plant plant, EnvironmentalConditions conditions) {
         // Calcular crecimiento basado en condiciones ambientales
-        double factorTemperatura = calcularFactorTemperatura(condiciones.getTemperatura());
-        double factorHumedad = calcularFactorHumedad(condiciones.getHumedad());
-        double factorLuz = calcularFactorLuz(condiciones.getHorasLuz());
-        double factorSuelo = calcularFactorSuelo(condiciones.getTipoSuelo());
+        double temperatureFactor = calculateTemperatureFactor(conditions.getTemperature());
+        double humidityFactor = calculateHumidityFactor(conditions.getHumidity());
+        double lightFactor = calculateLightFactor(conditions.getLightHours());
+        double soilFactor = calculateSoilFactor(conditions.getSoilType());
         
         // Promedio ponderado de factores
-        double crecimiento = (factorTemperatura * 0.3) + (factorHumedad * 0.3) + 
-                             (factorLuz * 0.25) + (factorSuelo * 0.15);
+        double growth = (temperatureFactor * 0.3) + (humidityFactor * 0.3) + 
+                         (lightFactor * 0.25) + (soilFactor * 0.15);
         
         // Redondear a 2 decimales
-        crecimiento = Math.round(crecimiento * 100.0) / 100.0;
+        growth = Math.round(growth * 100.0) / 100.0;
         
         // Generar recomendación basada en condiciones
-        String recomendacion = recomendacionService.generarRecomendacion(condiciones);
+        String recommendation = recommendationService.generateRecommendation(conditions);
         
         // Evaluar estado de salud
-        String estadoSalud = recomendacionService.evaluarEstadoSalud(condiciones);
+        String healthStatus = recommendationService.evaluateHealthStatus(conditions);
         
-        return new ResultadoSimulacion(crecimiento, recomendacion, estadoSalud);
+        return new SimulationResult(growth, recommendation, healthStatus);
     }
     
-    private double calcularFactorTemperatura(double temperatura) {
-        if (temperatura >= 15 && temperatura <= 25) {
+    private double calculateTemperatureFactor(double temperature) {
+        if (temperature >= 15 && temperature <= 25) {
             return 1.0; // Temperatura óptima
-        } else if (temperatura < 5 || temperatura > 35) {
+        } else if (temperature < 5 || temperature > 35) {
             return 0.3; // Temperatura extrema
         } else {
             return 0.7; // Temperatura moderada
         }
     }
     
-    private double calcularFactorHumedad(double humedad) {
-        if (humedad >= 40 && humedad <= 70) {
+    private double calculateHumidityFactor(double humidity) {
+        if (humidity >= 40 && humidity <= 70) {
             return 1.0; // Humedad óptima
-        } else if (humedad < 20 || humedad > 90) {
+        } else if (humidity < 20 || humidity > 90) {
             return 0.3; // Humedad extrema
         } else {
             return 0.7; // Humedad moderada
         }
     }
     
-    private double calcularFactorLuz(int horasLuz) {
-        if (horasLuz >= 8 && horasLuz <= 12) {
+    private double calculateLightFactor(int lightHours) {
+        if (lightHours >= 8 && lightHours <= 12) {
             return 1.0; // Luz óptima
-        } else if (horasLuz < 4 || horasLuz > 16) {
+        } else if (lightHours < 4 || lightHours > 16) {
             return 0.4; // Luz extrema
         } else {
             return 0.8; // Luz moderada
         }
     }
     
-    private double calcularFactorSuelo(String tipoSuelo) {
-        switch (tipoSuelo.toLowerCase()) {
+    private double calculateSoilFactor(String soilType) {
+        switch (soilType.toLowerCase()) {
             case "franco":
                 return 1.0; // Suelo óptimo
             case "arcilloso":

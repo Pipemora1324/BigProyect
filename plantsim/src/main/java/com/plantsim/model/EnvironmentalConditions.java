@@ -1,53 +1,54 @@
+// src/main/java/com/plantsim/model/EnvironmentalConditions.java
 package com.plantsim.model;
 
-public class CondicionesAmbientales {
-    private Double temperatura;
-    private Double humedad;
-    private String tipoSuelo;
-    private Integer horasLuz;
+public class EnvironmentalConditions {
+    private Double temperature;
+    private Double humidity;
+    private String soilType;
+    private Integer lightHours;
     
     // Constructor vacío
-    public CondicionesAmbientales() {
+    public EnvironmentalConditions() {
     }
     
     // Constructor con parámetros
-    public CondicionesAmbientales(Double temperatura, Double humedad, String tipoSuelo, Integer horasLuz) {
-        this.temperatura = temperatura;
-        this.humedad = humedad;
-        this.tipoSuelo = tipoSuelo;
-        this.horasLuz = horasLuz;
+    public EnvironmentalConditions(Double temperature, Double humidity, String soilType, Integer lightHours) {
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.soilType = soilType;
+        this.lightHours = lightHours;
     }
     
     // Getters y setters
-    public Double getTemperatura() {
-        return temperatura;
+    public Double getTemperature() {
+        return temperature;
     }
     
-    public void setTemperatura(Double temperatura) {
-        this.temperatura = temperatura;
+    public void setTemperature(Double temperature) {
+        this.temperature = temperature;
     }
     
-    public Double getHumedad() {
-        return humedad;
+    public Double getHumidity() {
+        return humidity;
     }
     
-    public void setHumedad(Double humedad) {
-        this.humedad = humedad;
+    public void setHumidity(Double humidity) {
+        this.humidity = humidity;
     }
     
-    public String getTipoSuelo() {
-        return tipoSuelo;
+    public String getSoilType() {
+        return soilType;
     }
     
-    public void setTipoSuelo(String tipoSuelo) {
-        this.tipoSuelo = tipoSuelo;
+    public void setSoilType(String soilType) {
+        this.soilType = soilType;
     }
     
-    public Integer getHorasLuz() {
-        return horasLuz;
+    public Integer getLightHours() {
+        return lightHours;
     }
     
-    public void setHorasLuz(Integer horasLuz) {
-        this.horasLuz = horasLuz;
+    public void setLightHours(Integer lightHours) {
+        this.lightHours = lightHours;
     }
 }
