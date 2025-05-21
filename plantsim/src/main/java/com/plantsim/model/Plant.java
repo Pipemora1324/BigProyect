@@ -12,22 +12,22 @@ public class Plant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private String name;
-    private String species;
-    private Integer age;
-    private String soilType;
+    private String nombre;
+    private String especie;
+    private Integer edad;
+    private String tipoSuelo;
     
     // Constructor vacío
     public Plant() {
     }
     
     // Constructor con parámetros
-    public Plant(Long id, String name, String species, Integer age, String soilType) {
+    public Plant(Long id, String nombre, String especie, Integer edad, String tipoSuelo) {
         this.id = id;
-        this.name = name;
-        this.species = species;
-        this.age = age;
-        this.soilType = soilType;
+        this.nombre = nombre;
+        this.especie = especie;
+        this.edad = edad;
+        this.tipoSuelo = tipoSuelo;
     }
     
     // Getters y setters
@@ -39,35 +39,35 @@ public class Plant {
         this.id = id;
     }
     
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
     
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
-    public String getSpecies() {
-        return species;
+    public String getEspecie() {
+        return especie;
     }
     
-    public void setSpecies(String species) {
-        this.species = species;
+    public void setEspecie(String especie) {
+        this.especie = especie;
     }
     
-    public Integer getAge() {
-        return age;
+    public Integer getEdad() {
+        return edad;
     }
     
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setEdad(Integer edad) {
+        this.edad = edad;
     }
     
-    public String getSoilType() {
-        return soilType;
+    public String getTipoSuelo() {
+        return tipoSuelo;
     }
     
-    public void setSoilType(String soilType) {
-        this.soilType = soilType;
+    public void setTipoSuelo(String tipoSuelo) {
+        this.tipoSuelo = tipoSuelo;
     }
 }
