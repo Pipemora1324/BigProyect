@@ -35,6 +35,7 @@ PlantSim es una aplicación web desarrollada como proyecto para el curso de Estr
 
 ### Frontend
 1. Navegar a la carpeta `/frontend`
+2. Navega a la carpeta  `plantsim-frontend`
 2. Ejecutar `npm install`
 3. Ejecutar `ng serve`
 4. Acceder a `http://localhost:4200` en el navegador
