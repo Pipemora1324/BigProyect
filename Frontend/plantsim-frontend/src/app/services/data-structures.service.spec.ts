@@ -9,3 +9,8 @@ describe('DataStructuresService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(DataStructuresService);
   });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});
