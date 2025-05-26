@@ -27,3 +27,20 @@ export class SimulacionService {
   addToRecommendedPlants(plant: Plant): void {
     this.dataStructuresService.addToRecommendedPlants(plant);
   }
+
+  // Método para obtener plantas recomendadas
+  getRecommendedPlants(): Plant[] {
+    return this.dataStructuresService.getRecommendedPlants();
+  }
+
+  // Método para agregar una tarea de cuidado
+  addCareTask(plantName: string, careTask: string): void {
+    const task = `${plantName}: ${careTask}`;
+    this.dataStructuresService.addCareTask(task);
+  }
+
+  // Método para obtener la lista de tareas de cuidado
+  getCareTasksList(): string[] {
+    return this.dataStructuresService.getCareTasksList();
+  }
+}
