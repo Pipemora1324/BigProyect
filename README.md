@@ -39,9 +39,3 @@ PlantSim es una aplicación web desarrollada como proyecto para el curso de Estr
 2. Ejecutar `npm install`
 3. Ejecutar `ng serve`
 4. Acceder a `http://localhost:4200` en el navegador
-
-juan felipe mora revelo
-daniers solarte
-david rmirez
-
-sapo el ramire y el daniers homosexuales adictos al chucho 
