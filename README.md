@@ -43,3 +43,5 @@ PlantSim es una aplicación web desarrollada como proyecto para el curso de Estr
 juan felipe mora revelo
 daniers solarte
 david rmirez
+
+sapo el ramire y el daniers homosexuales adictos al chucho 
