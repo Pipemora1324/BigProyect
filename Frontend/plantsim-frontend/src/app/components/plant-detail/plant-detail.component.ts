@@ -3,7 +3,7 @@ import { NgIf } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Plant } from '../../models/plant';
 import { PlantService } from '../../services/plant.service';
-import { SimulacionService } from '../../services/simulacion.service';
+import { SimulacionService } from '../../services/simulation.service';
 
 @Component({
   selector: 'app-plant-detail',
