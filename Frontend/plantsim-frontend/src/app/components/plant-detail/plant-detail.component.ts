@@ -3,7 +3,7 @@ import { NgIf } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Plant } from '../../models/plant';
 import { PlantService } from '../../services/plant.service';
-import { SimulacionService } from '../../services/simulacion.service';
+import { SimulationService } from '../../services/simulation.service';
 
 @Component({
   selector: 'app-plant-detail',
@@ -21,14 +21,14 @@ export class PlantDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private plantService: PlantService,
-    private simulacionService: SimulacionService
-  ) { }
+    private simulationService: SimulationService
+  ) {}
 
   ngOnInit(): void {
-    this.getPlant();
+    this.loadPlant();
   }
 
-  getPlant(): void {
+  loadPlant(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.plantService.getPlantById(id).subscribe({
       next: (plant) => {
@@ -38,38 +38,38 @@ export class PlantDetailComponent implements OnInit {
       error: (error) => {
         this.errorMessage = 'No se pudo cargar la planta. Por favor, inténtalo de nuevo.';
         this.isLoading = false;
-        console.error('Error al cargar la planta:', error);
+        console.error('Error loading plant:', error);
       }
     });
   }
 
-  irSimulador(): void {
+  goToSimulator(): void {
     if (this.plant && this.plant.id) {
-      this.router.navigate(['/plantas', this.plant.id, 'simular']);
+      this.router.navigate(['/plants', this.plant.id, 'simulate']);
     }
   }
 
   addToRecommended(): void {
     if (this.plant) {
-      this.simulacionService.addToRecommendedPlants(this.plant);
+      this.simulationService.addToRecommendedPlants(this.plant);
       alert('Planta añadida a recomendadas');
     }
   }
 
   addCareTask(task: string): void {
     if (this.plant) {
-      this.simulacionService.addCareTask(this.plant.nombre, task);
+      this.simulationService.addCareTask(this.plant.name, task);
       alert('Tarea de cuidado añadida');
     }
   }
 
   goBack(): void {
-    this.router.navigate(['/plantas']);
+    this.router.navigate(['/plants']);
   }
 
   editPlant(): void {
     if (this.plant && this.plant.id) {
-      this.router.navigate(['/plantas/editar', this.plant.id]);
+      this.router.navigate(['/plants/edit', this.plant.id]);
     }
   }
 
@@ -77,10 +77,10 @@ export class PlantDetailComponent implements OnInit {
     if (this.plant && this.plant.id && confirm('¿Estás seguro de que quieres eliminar esta planta?')) {
       this.plantService.deletePlant(this.plant.id).subscribe({
         next: () => {
-          this.router.navigate(['/plantas']);
+          this.router.navigate(['/plants']);
         },
         error: (error) => {
-          console.error('Error al eliminar la planta:', error);
+          console.error('Error deleting plant:', error);
           alert('No se pudo eliminar la planta. Por favor, inténtalo de nuevo.');
         }
       });

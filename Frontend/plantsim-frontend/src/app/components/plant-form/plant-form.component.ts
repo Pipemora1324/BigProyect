@@ -18,7 +18,7 @@ export class PlantFormComponent implements OnInit {
   plantId: number | null = null;
   isSubmitting = false;
   errorMessage = '';
-  tiposSuelo: string[] = ['arenoso', 'franco', 'arcilloso', 'limoso'];
+  soilTypes: string[] = ['Arenoso', 'Franco', 'Arcilla', 'Limoso'];
 
   constructor(
     private fb: FormBuilder,
@@ -27,10 +27,10 @@ export class PlantFormComponent implements OnInit {
     private plantService: PlantService
   ) {
     this.plantForm = this.fb.group({
-      nombre: ['', [Validators.required, Validators.minLength(2)]],
-      especie: ['', Validators.required],
-      edad: [1, [Validators.required, Validators.min(0)]],
-      tipoSuelo: ['franco', Validators.required]
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      species: ['', Validators.required],
+      age: [1, [Validators.required, Validators.min(0)]],
+      soilType: ['Franco', Validators.required]
     });
   }
 
@@ -48,15 +48,15 @@ export class PlantFormComponent implements OnInit {
       this.plantService.getPlantById(this.plantId).subscribe({
         next: (plant) => {
           this.plantForm.patchValue({
-            nombre: plant.nombre,
-            especie: plant.especie,
-            edad: plant.edad,
-            tipoSuelo: plant.tipoSuelo
+            name: plant.name,
+            species: plant.species,
+            age: plant.age,
+            soilType: plant.soilType
           });
         },
         error: (error) => {
           console.error('Error al cargar la planta:', error);
-          this.errorMessage = 'No se pudo cargar la información de la planta.';
+          this.errorMessage = 'No se pudieron cargar los datos de la planta.';
         }
       });
     }
@@ -65,38 +65,34 @@ export class PlantFormComponent implements OnInit {
   onSubmit(): void {
     if (this.plantForm.valid) {
       this.isSubmitting = true;
-      
       const plant: Plant = {
         ...this.plantForm.value
       };
 
       if (this.isEditMode && this.plantId) {
-        // Actualizar planta existente
         this.plantService.updatePlant(this.plantId, plant).subscribe({
           next: () => {
-            this.router.navigate(['/plantas', this.plantId]);
+            this.router.navigate(['/plants', this.plantId]);
           },
           error: (error) => {
             console.error('Error al actualizar la planta:', error);
-            this.errorMessage = 'No se pudo actualizar la planta. Por favor, inténtalo de nuevo.';
+            this.errorMessage = 'No se pudo actualizar la planta. Inténtalo de nuevo..';
             this.isSubmitting = false;
           }
         });
       } else {
-        // Crear nueva planta
         this.plantService.createPlant(plant).subscribe({
           next: (newPlant) => {
-            this.router.navigate(['/plantas', newPlant.id]);
+            this.router.navigate(['/plants', newPlant.id]);
           },
           error: (error) => {
             console.error('Error al crear la planta:', error);
-            this.errorMessage = 'No se pudo crear la planta. Por favor, inténtalo de nuevo.';
+            this.errorMessage = 'No se pudo crear la planta. Inténtalo de nuevo.';
             this.isSubmitting = false;
           }
         });
       }
     } else {
-      // Marcar todos los campos como tocados para mostrar errores
       Object.keys(this.plantForm.controls).forEach(key => {
         const control = this.plantForm.get(key);
         control?.markAsTouched();
@@ -106,9 +102,9 @@ export class PlantFormComponent implements OnInit {
 
   cancel(): void {
     if (this.isEditMode && this.plantId) {
-      this.router.navigate(['/plantas', this.plantId]);
+      this.router.navigate(['/plants', this.plantId]);
     } else {
-      this.router.navigate(['/plantas']);
+      this.router.navigate(['/plants']);
     }
   }
 }

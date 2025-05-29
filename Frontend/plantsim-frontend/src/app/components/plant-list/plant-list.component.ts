@@ -14,9 +14,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./plant-list.component.scss']
 })
 export class PlantListComponent implements OnInit {
-  plantas: Plant[] = [];
-  historialPlantas: Plant | undefined;
-  operacionPendiente: { operation: string, data: any } | undefined;
+  plants: Plant[] = [];
+  recentlyViewedPlant: Plant | undefined;
+  pendingOperation: { operation: string, data: any } | undefined;
 
   constructor(
     private plantService: PlantService,
@@ -25,15 +25,15 @@ export class PlantListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.cargarPlantas();
-    this.historialPlantas = this.plantService.getLastViewedPlant();
-    this.operacionPendiente = this.dataStructuresService.peekOperationQueue();
+    this.loadPlants();
+    this.recentlyViewedPlant = this.plantService.getLastViewedPlant();
+    this.pendingOperation = this.dataStructuresService.peekOperationQueue();
   }
 
-  cargarPlantas(): void {
+  loadPlants(): void {
     this.plantService.getPlants().subscribe({
-      next: (plantas) => {
-        this.plantas = plantas;
+      next: (plants) => {
+        this.plants = plants;
       },
       error: (error) => {
         console.error('Error al cargar plantas', error);
@@ -41,11 +41,11 @@ export class PlantListComponent implements OnInit {
     });
   }
 
-  eliminarPlanta(id: number | undefined): void {
+  deletePlant(id: number | undefined): void {
     if (id !== undefined && confirm('¿Estás seguro de que deseas eliminar esta planta?')) {
       this.plantService.deletePlant(id).subscribe({
         next: () => {
-          this.cargarPlantas();
+          this.loadPlants();
         },
         error: (error) => {
           console.error('Error al eliminar planta', error);
@@ -54,12 +54,12 @@ export class PlantListComponent implements OnInit {
     }
   }
 
-  volverAlAnterior(): void {
-    const plantaAnterior = this.plantService.goBackInHistory();
-    if (plantaAnterior && plantaAnterior.id) {
-      this.router.navigate(['/plantas', plantaAnterior.id]);
+  goBackToPrevious(): void {
+    const previousPlant = this.plantService.goBackInHistory();
+    if (previousPlant && previousPlant.id) {
+      this.router.navigate(['/plantas', previousPlant.id]);
     } else {
-      this.historialPlantas = undefined;
+      this.recentlyViewedPlant = undefined;
     }
   }
 }

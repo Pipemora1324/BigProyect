@@ -4,7 +4,7 @@
     <p class="lead">Simula el crecimiento de tus plantas basado en variables ambientales.</p>
     <hr class="my-4">
     <p>Registra tus plantas, ingresa las condiciones ambientales y obtén recomendaciones personalizadas.</p>
-    <a class="btn btn-primary btn-lg" routerLink="/plantas" role="button">Ver mis plantas</a>
+    <a class="btn btn-primary btn-lg" routerLink="/plants" role="button">Ver mis plantas</a>
   </div>
 
   <div class="row mt-4">
@@ -20,7 +20,7 @@
             <li>Edita información existente</li>
             <li>Elimina registros antiguos</li>
           </ul>
-          <a routerLink="/plantas" class="btn btn-outline-success">Ir a mis plantas</a>
+          <a routerLink="/plants" class="btn btn-outline-success">Ir a mis plantas</a>
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@
             <li>Horas de luz</li>
             <li>Tipo de suelo</li>
           </ul>
-          <a routerLink="/plantas" class="btn btn-outline-primary">Simular ahora</a>
+          <a routerLink="/plants" class="btn btn-outline-primary">Simular ahora</a>
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@
             <li>Tipo de suelo ideal</li>
             <li>Prevención de enfermedades</li>
           </ul>
-          <a routerLink="/plantas" class="btn btn-outline-info">Ver recomendaciones</a>
+          <a routerLink="/plants" class="btn btn-outline-info">Ver recomendaciones</a>
         </div>
       </div>
     </div>
@@ -73,9 +73,9 @@
             <div class="col-md-4" *ngFor="let plant of recommendedPlants">
               <div class="card mb-3">
                 <div class="card-body">
-                  <h5 class="card-title">{{plant.nombre}}</h5>
-                  <p class="card-text">{{plant.especie}}</p>
-                  <a [routerLink]="['/plantas', plant.id]" class="btn btn-sm btn-warning">Ver detalles</a>
+                  <h5 class="card-title">{{ plant.name }}</h5>
+                  <p class="card-text">{{ plant.species }}</p>
+                  <a [routerLink]="['/plants', plant.id]" class="btn btn-sm btn-warning">Ver detalles</a>
                 </div>
               </div>
             </div>
@@ -94,7 +94,7 @@
         <div class="card-body">
           <ul class="list-group">
             <li class="list-group-item" *ngFor="let task of careTasksList">
-              {{task}}
+              {{ task }}
             </li>
           </ul>
         </div>

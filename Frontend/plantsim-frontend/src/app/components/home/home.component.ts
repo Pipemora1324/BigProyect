@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Plant } from '../../models/plant';
-import { SimulacionService } from '../../services/simulacion.service';
+import { SimulationService } from '../../services/simulation.service';
 
 @Component({
   selector: 'app-home',
@@ -15,13 +15,13 @@ export class HomeComponent implements OnInit {
   recommendedPlants: Plant[] = [];
   careTasksList: string[] = [];
 
-  constructor(private simulacionService: SimulacionService) { }
+  constructor(private simulationService: SimulationService) { }
 
   ngOnInit(): void {
-    // Obtener plantas recomendadas de nuestro array circular
-    this.recommendedPlants = this.simulacionService.getRecommendedPlants();
+    // Get recommended plants from our circular array
+    this.recommendedPlants = this.simulationService.getRecommendedPlants();
     
-    // Obtener tareas de cuidado de nuestra lista enlazada
-    this.careTasksList = this.simulacionService.getCareTasksList();
+    // Get care tasks from our linked list
+    this.careTasksList = this.simulationService.getCareTasksList();
   }
 }

@@ -1,61 +1,61 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2>Mis Plantas</h2>
-    <a routerLink="/plantas/nueva" class="btn btn-success">
+    <a routerLink="/plants/new" class="btn btn-success">
       <i class="fas fa-plus"></i> Agregar Planta
     </a>
   </div>
 
-  <div class="alert alert-info" *ngIf="plantas && plantas.length === 0">
+  <div class="alert alert-info" *ngIf="plants && plants.length === 0">
     No tienes plantas registradas. ¡Comienza agregando una!
   </div>
 
   <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let planta of plantas">
+    <div class="col-md-4 mb-4" *ngFor="let plant of plants">
       <div class="card h-100">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="card-title mb-0">{{planta.nombre}}</h5>
+          <h5 class="card-title mb-0">{{plant.name}}</h5>
           <div>
             <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" 
                    data-bs-toggle="dropdown" aria-expanded="false">
               Acciones
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" [routerLink]="['/plantas', planta.id]">Ver detalles</a></li>
-              <li><a class="dropdown-item" [routerLink]="['/plantas', planta.id, 'simular']">Simular crecimiento</a></li>
-              <li><a class="dropdown-item" [routerLink]="['/plantas/editar', planta.id]">Editar</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/plants', plant.id]">Ver detalles</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/plants', plant.id, 'simulate']">Simular crecimiento</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/plants/edit', plant.id]">Editar</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item text-danger" href="javascript:void(0)" (click)="eliminarPlanta(planta.id)">Eliminar</a></li>
+              <li><a class="dropdown-item text-danger" href="javascript:void(0)" (click)="deletePlant(plant.id)">Eliminar</a></li>
             </ul>
           </div>
         </div>
         <div class="card-body">
-          <p><strong>Especie:</strong> {{planta.especie}}</p>
-          <p><strong>Edad:</strong> {{planta.edad}} años</p>
-          <p><strong>Tipo de suelo:</strong> {{planta.tipoSuelo}}</p>
+          <p><strong>Especie:</strong> {{plant.species}}</p>
+          <p><strong>Edad:</strong> {{plant.age}} años</p>
+          <p><strong>Tipo de suelo:</strong> {{plant.soilType}}</p>
         </div>
         <div class="card-footer d-flex justify-content-between">
-          <a [routerLink]="['/plantas', planta.id]" class="btn btn-sm btn-primary">Ver detalles</a>
-          <a [routerLink]="['/plantas', planta.id, 'simular']" class="btn btn-sm btn-success">Simular</a>
+          <a [routerLink]="['/plants', plant.id]" class="btn btn-sm btn-primary">Ver detalles</a>
+          <a [routerLink]="['/plants', plant.id, 'simulate']" class="btn btn-sm btn-success">Simular</a>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="mt-4" *ngIf="historialPlantas">
+  <div class="mt-4" *ngIf="recentlyViewedPlant">
     <h3>Historial de plantas vistas recientemente</h3>
     <div class="alert alert-secondary">
-      <p>Último registro visitado: <strong>{{historialPlantas.nombre}}</strong></p>
-      <button class="btn btn-sm btn-outline-secondary" (click)="volverAlAnterior()">
+      <p>Último registro visitado: <strong>{{recentlyViewedPlant.name}}</strong></p>
+      <button class="btn btn-sm btn-outline-secondary" (click)="goBackToPrevious()">
         Volver al anterior
       </button>
     </div>
   </div>
 
-  <div class="mt-4" *ngIf="operacionPendiente">
+  <div class="mt-4" *ngIf="pendingOperation">
     <h3>Operación pendiente</h3>
     <div class="alert alert-warning">
-      <p>Tienes una operación pendiente: <strong>{{operacionPendiente.operation}}</strong></p>
+      <p>Tienes una operación pendiente: <strong>{{pendingOperation.operation}}</strong></p>
     </div>
   </div>
 </div>

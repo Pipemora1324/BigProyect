@@ -11,64 +11,65 @@
 
       <form [formGroup]="plantForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
-          <label for="nombre" class="form-label">Nombre</label>
+          <label for="name" class="form-label">Nombre</label>
           <input 
             type="text" 
             class="form-control" 
-            id="nombre" 
-            formControlName="nombre" 
-            [class.is-invalid]="plantForm.get('nombre')?.invalid && plantForm.get('nombre')?.touched"
+            id="name" 
+            formControlName="name" 
+            [class.is-invalid]="plantForm.get('name')?.invalid && plantForm.get('name')?.touched"
           >
-          <div class="invalid-feedback" *ngIf="plantForm.get('nombre')?.errors?.['required']">
+          <div class="invalid-feedback" *ngIf="plantForm.get('name')?.errors?.['required']">
             El nombre es obligatorio.
           </div>
-          <div class="invalid-feedback" *ngIf="plantForm.get('nombre')?.errors?.['minlength']">
+          <div class="invalid-feedback" *ngIf="plantForm.get('name')?.errors?.['minlength']">
             El nombre debe tener al menos 2 caracteres.
           </div>
         </div>
 
         <div class="mb-3">
-          <label for="especie" class="form-label">Especie</label>
+          <label for="species" class="form-label">Especie</label>
           <input 
             type="text" 
             class="form-control" 
-            id="especie" 
-            formControlName="especie"
-            [class.is-invalid]="plantForm.get('especie')?.invalid && plantForm.get('especie')?.touched"
+            id="species" 
+            formControlName="species"
+            [class.is-invalid]="plantForm.get('species')?.invalid && plantForm.get('species')?.touched"
           >
-          <div class="invalid-feedback" *ngIf="plantForm.get('especie')?.errors?.['required']">
+          <div class="invalid-feedback" *ngIf="plantForm.get('species')?.errors?.['required']">
             La especie es obligatoria.
           </div>
         </div>
 
         <div class="mb-3">
-          <label for="edad" class="form-label">Edad (años)</label>
+          <label for="age" class="form-label">Edad (años)</label>
           <input 
             type="number" 
             class="form-control" 
-            id="edad" 
-            formControlName="edad"
-            [class.is-invalid]="plantForm.get('edad')?.invalid && plantForm.get('edad')?.touched"
+            id="age" 
+            formControlName="age"
+            [class.is-invalid]="plantForm.get('age')?.invalid && plantForm.get('age')?.touched"
           >
-          <div class="invalid-feedback" *ngIf="plantForm.get('edad')?.errors?.['required']">
+          <div class="invalid-feedback" *ngIf="plantForm.get('age')?.errors?.['required']">
             La edad es obligatoria.
           </div>
-          <div class="invalid-feedback" *ngIf="plantForm.get('edad')?.errors?.['min']">
+          <div class="invalid-feedback" *ngIf="plantForm.get('age')?.errors?.['min']">
             La edad no puede ser negativa.
           </div>
         </div>
 
         <div class="mb-4">
-          <label for="tipoSuelo" class="form-label">Tipo de Suelo</label>
+          <label for="soilType" class="form-label">Tipo de Suelo</label>
           <select 
             class="form-select" 
-            id="tipoSuelo" 
-            formControlName="tipoSuelo"
-            [class.is-invalid]="plantForm.get('tipoSuelo')?.invalid && plantForm.get('tipoSuelo')?.touched"
+            id="soilType" 
+            formControlName="soilType"
+            [class.is-invalid]="plantForm.get('soilType')?.invalid && plantForm.get('soilType')?.touched"
           >
-            <option *ngFor="let tipo of tiposSuelo" [value]="tipo">{{ tipo }}</option>
+            <option value="">Seleccionar tipo de suelo</option>
+            <option *ngFor="let tipo of soilTypes" [value]="tipo">{{ tipo }}</option>
           </select>
-          <div class="invalid-feedback" *ngIf="plantForm.get('tipoSuelo')?.errors?.['required']">
+          <div class="invalid-feedback" *ngIf="plantForm.get('soilType')?.errors?.['required']">
             El tipo de suelo es obligatorio.
           </div>
         </div>
@@ -77,7 +78,7 @@
           <button 
             type="submit" 
             class="btn btn-primary" 
-            [disabled]="isSubmitting"
+            [disabled]="isSubmitting || plantForm.invalid"
           >
             <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
             {{ isEditMode ? 'Actualizar' : 'Crear' }} Planta

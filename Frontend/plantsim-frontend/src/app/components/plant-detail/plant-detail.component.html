@@ -14,18 +14,18 @@
   <div *ngIf="plant && !isLoading">
     <div class="card">
       <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-        <h2 class="mb-0">{{ plant.nombre }}</h2>
+        <h2 class="mb-0">{{ plant.name }}</h2>
         <div>
           <button class="btn btn-outline-light me-2" (click)="addToRecommended()">
             <i class="fas fa-star"></i> Añadir a Recomendados
           </button>
           <div class="btn-group ms-2">
             <button class="btn btn-sm btn-outline-light dropdown-toggle" type="button" 
-                   data-bs-toggle="dropdown" aria-expanded="false">
+                    data-bs-toggle="dropdown" aria-expanded="false">
               Acciones
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" (click)="irSimulador()"><i class="fas fa-seedling"></i> Simular</a></li>
+              <li><a class="dropdown-item" (click)="goToSimulator()"><i class="fas fa-seedling"></i> Simular</a></li>
               <li><a class="dropdown-item" (click)="editPlant()"><i class="fas fa-edit"></i> Editar</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item text-danger" (click)="deletePlant()"><i class="fas fa-trash"></i> Eliminar</a></li>
@@ -41,19 +41,19 @@
               <tbody>
                 <tr>
                   <th>Nombre:</th>
-                  <td>{{ plant.nombre }}</td>
+                  <td>{{ plant.name }}</td>
                 </tr>
                 <tr>
                   <th>Especie:</th>
-                  <td>{{ plant.especie }}</td>
+                  <td>{{ plant.species }}</td>
                 </tr>
                 <tr>
                   <th>Edad:</th>
-                  <td>{{ plant.edad }} años</td>
+                  <td>{{ plant.age }} años</td>
                 </tr>
                 <tr>
                   <th>Tipo de suelo:</th>
-                  <td>{{ plant.tipoSuelo }}</td>
+                  <td>{{ plant.soilType }}</td>
                 </tr>
               </tbody>
             </table>
@@ -71,10 +71,10 @@
                 </div>
               </div>
             </div>
-            
+
             <h3 class="mt-4">Acciones Rápidas</h3>
             <div class="d-grid gap-2">
-              <button class="btn btn-success" (click)="irSimulador()">
+              <button class="btn btn-success" (click)="goToSimulator()">
                 <i class="fas fa-seedling"></i> Simular Crecimiento
               </button>
               <button class="btn btn-primary" (click)="editPlant()">
