@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Plant } from '../../models/plant';
-import { SimulacionService } from '../../services/simulacion.service';
+import { SimulacionService } from '../../services/simulation.service';
 
 @Component({
   selector: 'app-home',

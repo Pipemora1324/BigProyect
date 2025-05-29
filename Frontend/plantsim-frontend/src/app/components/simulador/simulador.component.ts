@@ -3,10 +3,10 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Plant } from '../../models/plant';
-import { CondicionesAmbientales } from '../../models/condiciones-ambientales';
-import { ResultadoSimulacion } from '../../models/resultado-simulacion';
+import { CondicionesAmbientales } from '../../models/environmental-conditions';
+import { ResultadoSimulacion } from '../../models/simulation-result';
 import { PlantService } from '../../services/plant.service';
-import { SimulacionService } from '../../services/simulacion.service';
+import { SimulacionService } from '../../services/simulation.service';
 
 @Component({
   selector: 'app-simulador',

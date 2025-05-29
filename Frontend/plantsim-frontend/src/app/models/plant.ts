@@ -1,7 +1,7 @@
 export interface Plant {
   id?: number;
-  nombre: string;
-  especie: string;
-  edad: number;
-  tipoSuelo: string;
+  name: string;
+  species: string;
+  age: number;
+  soilType: string;
 }
