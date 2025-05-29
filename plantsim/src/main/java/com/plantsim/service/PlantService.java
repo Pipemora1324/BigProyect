@@ -1,14 +1,12 @@
 package com.plantsim.service;
 
+import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Service;
-
 import com.plantsim.model.Plant;
-
 import jakarta.annotation.PostConstruct;
 
 @Service
