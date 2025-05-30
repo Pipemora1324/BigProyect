@@ -11,9 +11,37 @@ Este proyecto no solo aplica conceptos técnicos fundamentales, sino que tambié
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Backend**: ⚙️ Spring Boot (Java 21)
-- **Frontend**: 🎨 Angular 17
-- **Base de Datos**: 🧠 H2 (en memoria)
+   El desarrollo de PlantSim se apoya en un stack tecnológico moderno y robusto, que permite trabajar de manera eficiente tanto en el frontend como en el backend:
+
+- 🔧 Backend: Spring Boot (Java 21)
+
+   Framework robusto para crear APIs RESTful en Java.
+
+   Contiene la lógica del negocio y conexión con la base de datos.
+
+- 💻 Frontend: Angular 17
+
+   Framework de desarrollo web para crear interfaces dinámicas y modernas.
+
+   Consume los servicios del backend y ofrece una experiencia interactiva al usuario.
+
+- 🗄️ Base de Datos: H2 (en memoria)
+
+   Base de datos relacional que corre en memoria, ideal para pruebas y prototipos.
+
+   No requiere instalación adicional ni configuración compleja.
+
+   🧩 Requisitos Previos
+
+   Para poder ejecutar y compilar el proyecto correctamente en tu máquina, asegúrate de tener instaladas las siguientes herramientas:
+
+   - 📦 Node.js (v16 o superior): necesario para ejecutar Angular y manejar paquetes npm.
+
+   - 🛠️ Maven (v3.8+): utilizado para compilar y ejecutar el proyecto backend con Spring Boot.
+
+   - ☕ JDK 17 o superior: requerido para ejecutar aplicaciones Java con Spring Boot.
+
+   - 🌐 Navegador moderno (como Chrome, Firefox o Edge): para acceder a la aplicación web.
 
 ---
 
