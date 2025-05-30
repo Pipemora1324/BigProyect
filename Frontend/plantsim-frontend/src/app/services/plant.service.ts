@@ -8,7 +8,7 @@ import { DataStructuresService } from './data-structures.service';
   providedIn: 'root'
 })
 export class PlantService {
-  private apiUrl = 'http://localhost:8082/api/plantas';
+  private apiUrl = 'http://localhost:8082/api/plants';
 
   constructor(
     private http: HttpClient,

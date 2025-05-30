@@ -1,19 +1,21 @@
 package com.plantsim.service;
 
-import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
 import com.plantsim.model.Plant;
+
 import jakarta.annotation.PostConstruct;
 
 @Service
 public class PlantService {
     
     // Simulamos una base de datos con una lista
-    private List<Plant> plantas = new ArrayList<>();
+    private List<Plant> floors = new ArrayList<>();
     private Long idCounter = 0L;
     
     // Inicializar con datos de ejemplo
@@ -28,35 +30,35 @@ public class PlantService {
     
     // Método para obtener todas las plantas
     public List<Plant> findAll() {
-        return plantas;
+        return floors;
     }
     
     // Método para encontrar una planta por ID
     public Plant findById(Long id) {
-        Optional<Plant> planta = plantas.stream()
+        Optional<Plant> plant = floors.stream()
                 .filter(p -> p.getId().equals(id))
                 .findFirst();
-        return planta.orElse(null);
+        return plant.orElse(null);
     }
     
     // Método para guardar una nueva planta
     public Plant save(Plant plant) {
         if (plant.getId() == null) {
             plant.setId(++idCounter);
-            plantas.add(plant);
+            floors.add(plant);
         } else {
             // Si ya existe, actualizar
-            plantas = plantas.stream()
+            floors = floors.stream()
                     .filter(p -> !p.getId().equals(plant.getId()))
                     .collect(Collectors.toList());
-            plantas.add(plant);
+            floors.add(plant);
         }
         return plant;
     }
     
     // Método para eliminar una planta
     public void deleteById(Long id) {
-        plantas = plantas.stream()
+        floors = floors.stream()
                 .filter(p -> !p.getId().equals(id))
                 .collect(Collectors.toList());
     }
