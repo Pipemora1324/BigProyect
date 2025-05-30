@@ -11,7 +11,7 @@ Este proyecto no solo aplica conceptos técnicos fundamentales, sino que tambié
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Backend**: ⚙️ Spring Boot (Java)
+- **Backend**: ⚙️ Spring Boot (Java 21)
 - **Frontend**: 🎨 Angular 17
 - **Base de Datos**: 🧠 H2 (en memoria)
 
