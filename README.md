@@ -91,9 +91,11 @@ Este proyecto no solo aplica conceptos técnicos fundamentales, sino que tambié
 
 ### 🔧 Backend
 
-1. Navegar a la carpeta `/backend`
+1. Navegar a la carpeta `/plantsim`
 2. Ejecutar `mvn spring-boot:run`
 3. El servidor estará disponible en `http://localhost:8082`
+
+### En otra ventana de la terminal ejecuta
 
 ### 🎨 Frontend
 
