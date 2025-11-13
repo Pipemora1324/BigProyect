@@ -6,3 +6,5 @@ bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
 
 // Este es un comentario para forzar redeploy
+
+// Este es un comentario para forzar redeploy bien
