@@ -10,3 +10,5 @@ bootstrapApplication(AppComponent, appConfig)
 // Este es un comentario para forzar redeploy bien
 
 // Prueba Vercel
+
+// prueba Vercel
